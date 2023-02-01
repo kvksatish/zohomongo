@@ -25,6 +25,6 @@ app.listen(7500, async () => {
         console.log(err)
     }
     console.log("linstening to port 7500")
-    console.log(process.env.NAME)
+
     //console.log(process.env.MONGO_URL)
 })
