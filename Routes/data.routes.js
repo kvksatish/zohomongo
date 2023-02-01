@@ -11,6 +11,8 @@ const dataController = Router()
 //    // console.log(req.body)
 //     const result = await DataModel.updateOne({ _id: '63da16a4f853f245bb15c049' }, { $set: req.body })
 //     res.send(result)
+
+
 // })
 dataController.get("/get", async (req, res) => {
     // console.log(req.body)
