@@ -7,26 +7,26 @@ const dataController = Router()
 
 
 
-dataController.put("/update", async (req, res) => {
-    console.log(req.body)
-    const result = await DataModel.updateOne({ _id: '63da16a4f853f245bb15c049' }, { $set: req.body })
-    res.send(result)
-})
+// dataController.put("/update", async (req, res) => {
+//    // console.log(req.body)
+//     const result = await DataModel.updateOne({ _id: '63da16a4f853f245bb15c049' }, { $set: req.body })
+//     res.send(result)
+// })
 dataController.get("/get", async (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     debouncedFunction()
     const result = await DataModel.find()
     res.send(result)
 })
 
 
-dataController.post("/adddata", async (req, res) => {
-    console.log("post")
-    const payload = req.body
-    const new_topic = new DataModel(payload)
-    await new_topic.save()
-    res.send("successfully added")
-})
+// dataController.post("/adddata", async (req, res) => {
+//     console.log("post")
+//     const payload = req.body
+//     const new_topic = new DataModel(payload)
+//     await new_topic.save()
+//     res.send("successfully added")
+// })
 module.exports = {
     dataController
 }
