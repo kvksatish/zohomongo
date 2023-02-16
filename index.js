@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
     res.send("welcome")
 })
 
-app.use("/zoho", dataController)
+//app.use("/zoho", dataController)
 
 
 app.listen(7500, async () => {
