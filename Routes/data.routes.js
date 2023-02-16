@@ -38,73 +38,88 @@ module.exports = {
 //////////////////////////////////////////////////////
 
 
-async function fetcher1() {
-    let pres = await Promise.all(
+// async function fetcher1() {
+//     let pres = await Promise.all(
 
-        [
-            axios.get(`https://zohocrmdata.vercel.app/getdata?page=1`),
-            axios.get(`https://zohoapi2.vercel.app/getdata?page=2`),
-            axios.get(`https://zohocrmdata.vercel.app/getdata?page=3`),
-        ]
-    )
-    ////////
-    let arr = [
-        ...pres[0].data.data.data,
-        ...pres[1].data.data.data,
-        ...pres[2].data.data.data,
-    ]
+//         [
+//             axios.get(`https://zohocrmdata.vercel.app/getdata?page=1`),
+//             axios.get(`https://zohoapi2.vercel.app/getdata?page=2`),
+//             axios.get(`https://zohocrmdata.vercel.app/getdata?page=3`),
+//         ]
+//     )
+//     ////////
+//     let arr = [
+//         ...pres[0].data.data.data,
+//         ...pres[1].data.data.data,
+//         ...pres[2].data.data.data,
+//     ]
 
-    return arr
-}
+//     return arr
+// }
 
-async function fetcher2() {
-    let pres = await Promise.all(
+// async function fetcher2() {
+//     let pres = await Promise.all(
 
-        [
-            axios.get(`https://zohoapi2.vercel.app/getdata?page=4`),
-            axios.get(`https://zohocrmdata.vercel.app/getdata?page=5`),
-            axios.get(`https://zohoapi2.vercel.app/getdata?page=6`),
-        ]
-    )
+//         [
+//             axios.get(`https://zohoapi2.vercel.app/getdata?page=4`),
+//             axios.get(`https://zohocrmdata.vercel.app/getdata?page=5`),
+//             axios.get(`https://zohoapi2.vercel.app/getdata?page=6`),
+//         ]
+//     )
 
-    let arr = [
-        ...pres[0].data.data.data,
-        ...pres[1].data.data.data,
-        ...pres[2].data.data.data,
-    ]
+//     let arr = [
+//         ...pres[0].data.data.data,
+//         ...pres[1].data.data.data,
+//         ...pres[2].data.data.data,
+//     ]
 
-    return arr
-}
-async function fetcher3() {
-    let pres = await Promise.all(
+//     return arr
+// }
+// async function fetcher3() {
+//     let pres = await Promise.all(
 
-        [
-            axios.get(`https://zohocrmdata.vercel.app/getdata?page=7`),
-            axios.get(`https://zohoapi2.vercel.app/getdata?page=8`),
-            axios.get(`https://zohocrmdata.vercel.app/getdata?page=9`),
-        ]
-    )
+//         [
+//             axios.get(`https://zohocrmdata.vercel.app/getdata?page=7`),
+//             axios.get(`https://zohoapi2.vercel.app/getdata?page=8`),
+//             axios.get(`https://zohocrmdata.vercel.app/getdata?page=9`),
+//         ]
+//     )
 
-    let arr = [
-        ...pres[0].data.data.data,
-        ...pres[1].data.data.data,
-        ...pres[2].data.data.data,
-    ]
+//     let arr = [
+//         ...pres[0].data.data.data,
+//         ...pres[1].data.data.data,
+//         ...pres[2].data.data.data,
+//     ]
 
-    return arr
-}
+//     return arr
+// }
 
 async function alldata() {
-    console.log("alldata")
+    console.log("alldata");
 
-    let resall = await Promise.all(
-        [
-            fetcher1(),
-            fetcher2(),
-            fetcher3()
-        ]
-    )
-    return [...resall[0], ...resall[1], ...resall[2]]
+    let result1 = await axios.get("https://zohocrmdata.vercel.app/getdata");
+    console.log(result1.data, 111)
+
+    await new Promise(resolve => setTimeout(resolve, 1000 * 10));
+
+    let result2 = await axios.get("https://zohocrmdata.vercel.app/getdata");
+    console.log(result2.data, 222)
+    // Wait for 30 seconds before making the second API call
+    await new Promise(resolve => setTimeout(resolve, 1000 * 10));
+
+    let bulkData = await bulkapi(result2.data.accessToken, result1.data.nextGet);
+
+    console.log(bulkData, 333);
+    return bulkData?.data;
+}
+
+
+
+
+async function bulkapi(accessToken, nextGet) {
+    console.log(accessToken, nextGet)
+    let data = await axios.get(`https://zohobulkapi.vercel.app/getdata?accessToken=${accessToken}&nextGet=${nextGet}`);
+    return data;
 }
 
 //////////////////functions//////////////////////
@@ -145,7 +160,7 @@ setInterval(() => {
             })
         })
     }
-}, 1000 * 60 * 4);
+}, 1000 * 60 * 1);
 
 
 //////////////////writing/////////////////////////
