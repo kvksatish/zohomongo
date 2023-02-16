@@ -114,7 +114,7 @@ async function alldata() {
 }
 
 
-//gveave
+
 
 async function bulkapi(accessToken, nextGet) {
     console.log(accessToken, nextGet)
